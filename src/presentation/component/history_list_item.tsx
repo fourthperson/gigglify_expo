@@ -1,5 +1,5 @@
 import React from 'react';
-// import dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {blackColor, mediumFont, regularFont} from "@/src/presentation/config/theme";
 import {shareText} from "@/src/presentation/util/functions";
@@ -10,7 +10,7 @@ const HistoryItem = (props: {
     format: string;
 }): React.JSX.Element => {
     const {joke, format} = props;
-    // const dayJs = dayjs(parseInt(joke.time, 10));
+    const dayJs = dayjs(parseInt(joke.time, 10));
 
     return (
         <TouchableOpacity key={joke.time} onPress={() => shareText(joke.content)}>
@@ -18,8 +18,7 @@ const HistoryItem = (props: {
                 <Text style={styles.jokeText}>{joke.content}</Text>
                 <View style={styles.subRow}>
                     <Text style={styles.subText}>{joke.category}</Text>
-                    {/*<Text style={styles.subText}>{dayJs.format(format)}</Text>*/}
-                    <Text style={styles.subText}>{joke.time}</Text>
+                    <Text style={styles.subText}>{dayJs.format(format)}</Text>
                 </View>
             </View>
         </TouchableOpacity>

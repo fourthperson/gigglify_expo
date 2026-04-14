@@ -1,6 +1,7 @@
 import {useCallback, useState} from "react";
 import {Joke} from "@/src/domain/entity/joke";
 import {historyGetUseCase} from "@/src/di";
+import {getSystemDateFormat} from "@/src/presentation/util/functions";
 
 export const useHistory = () => {
     const [data, setData] = useState<{ jokes: Joke[], dateFormat: string }>({
@@ -13,7 +14,9 @@ export const useHistory = () => {
         setIsLoading(true);
 
         const history: Joke[] = await historyGetUseCase.execute();
-        setData({jokes: history, dateFormat: 'DD MMM YYYY h:mm A'});
+        const dateFormat: string = getSystemDateFormat();
+
+        setData({jokes: history, dateFormat: dateFormat});
 
         setIsLoading(false);
     }, []);

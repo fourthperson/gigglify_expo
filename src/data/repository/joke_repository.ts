@@ -23,7 +23,7 @@ export class ApiJokeRepository implements JokeRepository {
                 ? (data.joke ?? '')
                 : `${data.setup}\n\n${data.delivery}`,
             category: data.category,
-            time: new Date().toISOString(),
+            time: Date.now().toString(),
         };
     }
 }

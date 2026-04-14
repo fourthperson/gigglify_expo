@@ -44,7 +44,7 @@ const HomePage = (): React.JSX.Element => {
 
     const share = useCallback(() => {
         if (joke) {
-            shareText(joke.content);
+            shareText(joke.content).then();
         }
     }, [joke]);
 
