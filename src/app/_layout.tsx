@@ -4,6 +4,7 @@ import {useEffect} from "react";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import dayjs from "dayjs";
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import "../presentation/lang/i18n";
 
 dayjs.extend(customParseFormat);
 

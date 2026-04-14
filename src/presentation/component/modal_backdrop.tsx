@@ -6,13 +6,14 @@ import {blackColor} from "@/src/presentation/config/theme";
 
 const ModalBackdrop = (props: BottomSheetBackdropProps): React.JSX.Element => {
     return (
-        <BottomSheetBackdrop style={styles.backdropStyle}
-                             {...{
-                                 ...props,
-                                 appearsOnIndex: 0,
-                                 disappearsOnIndex: -1,
-                                 opacity: 0.5,
-                             }}
+        <BottomSheetBackdrop
+            style={styles.backdropStyle}
+            {...{
+                ...props,
+                appearsOnIndex: 0,
+                disappearsOnIndex: -1,
+                opacity: 0.5,
+            }}
         />
     );
 };
