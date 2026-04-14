@@ -38,7 +38,19 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/CooperHewitt-Bold.otf",
+            "./assets/fonts/CooperHewitt-Light.otf",
+            "./assets/fonts/CooperHewitt-Medium.otf",
+            "./assets/fonts/CooperHewitt-Book.otf"
+          ]
+        }
+      ],
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true,
