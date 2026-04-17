@@ -13,8 +13,9 @@ export const useJoke = () => {
             const categories: Category[] = await categoryGetUseCase.execute();
             let path: string | undefined = undefined;
             if (categories.length !== 0) {
-                path = categories.map((c) => c.id).join(',');
+                path = categories.map((c: Category) => c.id).join(',');
             }
+            console.warn(path);
             const result: Joke = await jokeGetUseCase.execute(path);
             await historyAddUseCase.execute(result);
             setJoke(result);

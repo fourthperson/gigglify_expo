@@ -9,8 +9,8 @@ const CATEGORY_KEY = '@categories';
 export class EncryptedPreferences implements PrefsDataSource {
     async saveJoke(joke: Joke): Promise<void> {
         const history: Joke[] = await this.getHistory();
-        const newHistory = [joke, ...history];
-        await AsyncStorage.setItem(CATEGORY_KEY, JSON.stringify(newHistory));
+        const updated: Joke[] = [joke, ...history];
+        await AsyncStorage.setItem(HISTORY_KEY, JSON.stringify(updated));
     }
 
     async getHistory(): Promise<Joke[]> {
