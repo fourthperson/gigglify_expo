@@ -1,16 +1,16 @@
 import {Category} from "@/src/domain/entity/category";
 import {CategoryRepository} from "@/src/domain/repository/category_repository";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const CATEGORY_KEY = '@categories';
+import {PrefsDataSource} from "@/src/data/source/prefs/prefs_data_source";
 
 export class OfflineCategoryRepository implements CategoryRepository {
+    constructor(private prefsDataSource: PrefsDataSource) {
+    }
+
     async getCategories(): Promise<Category[]> {
-        const data: string | null = await AsyncStorage.getItem(CATEGORY_KEY);
-        return data ? JSON.parse(data) : [];
+        return await this.prefsDataSource.getCategories();
     }
 
     async saveCategories(categories: Category[]): Promise<void> {
-        await AsyncStorage.setItem(CATEGORY_KEY, JSON.stringify(categories));
+        await this.prefsDataSource.setCategories(categories);
     }
 }

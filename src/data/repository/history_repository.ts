@@ -1,23 +1,16 @@
 import {HistoryRepository} from "@/src/domain/repository/history_repository";
 import {Joke} from "@/src/domain/entity/joke";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const HISTORY_KEY = '@history';
+import {PrefsDataSource} from "@/src/data/source/prefs/prefs_data_source";
 
 export class OfflineHistoryRepository implements HistoryRepository {
+    constructor(private prefsDataSource: PrefsDataSource) {
+    }
+
     async getHistory(): Promise<Joke[]> {
-        try {
-            const history = await AsyncStorage.getItem(HISTORY_KEY);
-            return history ? JSON.parse(history) : [];
-        } catch (e) {
-            console.error(e);
-        }
-        return [];
+        return await this.prefsDataSource.getHistory();
     }
 
     async saveJoke(joke: Joke): Promise<void> {
-        const history: Joke[] = await this.getHistory();
-        const updated: Joke[] = [joke, ...history];
-        await AsyncStorage.setItem(HISTORY_KEY, JSON.stringify(updated));
+        return await this.prefsDataSource.saveJoke(joke);
     }
 }
