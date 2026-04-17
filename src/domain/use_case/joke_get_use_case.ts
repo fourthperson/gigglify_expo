@@ -5,7 +5,7 @@ export class JokeGetUseCase {
     constructor(private jokeRepository: JokeRepository) {
     }
 
-    async execute(path?: string): Promise<Joke> {
+    async execute(path: string): Promise<Joke> {
         return await this.jokeRepository.getJoke(path);
     }
 }

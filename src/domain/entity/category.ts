@@ -12,4 +12,13 @@ export const AVAILABLE_CATEGORIES: Category[] = [
     {id: 'Christmas', translationKey: 'cat_christmas'},
 ];
 
+export const BLACKLIST_CATEGORIES: string[] = [
+    'Religious',
+    'Political',
+    'Racist',
+    'Sexist',
+    'Explicit',
+    'NSFW',
+]
+
 export const ANY_CATEGORY_ID = 'Any';

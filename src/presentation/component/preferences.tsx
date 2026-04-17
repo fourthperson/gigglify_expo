@@ -15,15 +15,25 @@ import {
     primaryColor,
     regularFont,
 } from '../config/theme';
-import {useCategories} from "@/src/presentation/hook/use_categories";
-import {ANY_CATEGORY_ID, AVAILABLE_CATEGORIES, Category} from "@/src/domain/entity/category";
+import {useCategories} from "@/src/presentation/hook/use_preference";
+import {
+    ANY_CATEGORY_ID,
+    AVAILABLE_CATEGORIES,
+    BLACKLIST_CATEGORIES,
+    Category
+} from "@/src/domain/entity/category";
 import CategoryListTile from "@/src/presentation/component/category_list_tile";
 
 const PreferencesSheet = (): React.JSX.Element => {
     // const {t} = useTranslation();
-    const {handleToggle, isSelected, isLoading} = useCategories();
+    const {
+        onCategoryToggle,
+        isCategorySelected,
+        onBlacklistToggle,
+        isBlacklisted,
+        isLoading
+    } = useCategories();
 
-    // Combine 'Any' with the rest of the categories for the list
     const allOptions: Category[] = [
         {id: ANY_CATEGORY_ID, translationKey: 'category_any'},
         ...AVAILABLE_CATEGORIES
@@ -32,8 +42,6 @@ const PreferencesSheet = (): React.JSX.Element => {
     return (
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
             <Text style={styles.titleStyle}>Preferences</Text>
-            <Text style={styles.optionLabel}>Allowed Categories</Text>
-            <View style={styles.spacer}/>
 
             {isLoading ? (
                 <ActivityIndicator
@@ -42,18 +50,35 @@ const PreferencesSheet = (): React.JSX.Element => {
                     color={primaryColor}
                 />
             ) : (
-                <BottomSheetFlatList
-                    data={allOptions}
-                    scrollEnabled={false}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({item}) => (
-                        <CategoryListTile
-                            isChecked={isSelected(item.id)}
-                            label={item.id}
-                            onChecked={() => handleToggle(item)}
-                        />
-                    )}
-                />
+                <>
+                    <Text style={styles.optionLabel}>Allowed Categories</Text>
+                    <View style={styles.spacer}/>
+                    <BottomSheetFlatList
+                        data={allOptions}
+                        scrollEnabled={false}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({item}) => (
+                            <CategoryListTile
+                                isChecked={isCategorySelected(item.id)}
+                                label={item.id}
+                                onChecked={() => onCategoryToggle(item)}
+                            />
+                        )}
+                    />
+                    <Text style={styles.optionLabel}>Blacklisted Categories</Text>
+                    <View style={styles.spacer}/>
+                    <BottomSheetFlatList
+                        data={BLACKLIST_CATEGORIES}
+                        scrollEnabled={false}
+                        keyExtractor={(item: string) => item}
+                        renderItem={({item}) => (
+                            <CategoryListTile
+                                isChecked={isBlacklisted(item)}
+                                label={item}
+                                onChecked={() => onBlacklistToggle(item)}/>
+                        )}
+                    />
+                </>
             )}
         </BottomSheetScrollView>
     );

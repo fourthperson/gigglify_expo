@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HISTORY_KEY = '@history';
 const CATEGORY_KEY = '@categories';
+const BLACKLIST_KEY = '@blacklist';
 
 export class EncryptedPreferences implements PrefsDataSource {
     async saveJoke(joke: Joke): Promise<void> {
@@ -14,17 +15,27 @@ export class EncryptedPreferences implements PrefsDataSource {
     }
 
     async getHistory(): Promise<Joke[]> {
-        const data = await AsyncStorage.getItem(HISTORY_KEY);
+        const data: string | null = await AsyncStorage.getItem(HISTORY_KEY);
         return data ? JSON.parse(data) : [];
     }
 
     async getCategories(): Promise<Category[]> {
-        const data = await AsyncStorage.getItem(CATEGORY_KEY);
+        const data: string | null = await AsyncStorage.getItem(CATEGORY_KEY);
         return data ? JSON.parse(data) : [];
     }
 
     async setCategories(categories: Category[]): Promise<void> {
-        const data = JSON.stringify(categories)
+        const data: string = JSON.stringify(categories)
         await AsyncStorage.setItem(CATEGORY_KEY, data);
+    }
+
+    async getBlackList(): Promise<string[]> {
+        const data: string | null = await AsyncStorage.getItem(BLACKLIST_KEY);
+        return data ? JSON.parse(data) : [];
+    }
+
+    async setBlackList(blacklist: string[]): Promise<void> {
+        const data: string = JSON.stringify(blacklist);
+        await AsyncStorage.setItem(BLACKLIST_KEY, data);
     }
 }
