@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-    ActivityIndicator,
-    Platform,
     StyleSheet,
     Text,
     View,
@@ -12,8 +10,6 @@ import {BottomSheetFlatList, BottomSheetScrollView} from '@gorhom/bottom-sheet';
 import {
     blackColor,
     mediumFont,
-    primaryColor,
-    regularFont,
 } from '../config/theme';
 import {useCategories} from "@/src/presentation/hook/use_preference";
 import {
@@ -23,6 +19,7 @@ import {
     Category
 } from "@/src/domain/entity/category";
 import CategoryListTile from "@/src/presentation/component/category_list_tile";
+import Loader from "@/src/presentation/component/loader";
 
 const PreferencesSheet = (): React.JSX.Element => {
     // const {t} = useTranslation();
@@ -42,44 +39,42 @@ const PreferencesSheet = (): React.JSX.Element => {
     return (
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
             <Text style={styles.titleStyle}>Preferences</Text>
-
-            {isLoading ? (
-                <ActivityIndicator
-                    style={styles.loadingIndicator}
-                    size={Platform.OS === 'ios' ? 'small' : 'large'}
-                    color={primaryColor}
-                />
-            ) : (
-                <>
-                    <Text style={styles.optionLabel}>Allowed Categories</Text>
-                    <View style={styles.spacer}/>
-                    <BottomSheetFlatList
-                        data={allOptions}
-                        scrollEnabled={false}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({item}) => (
-                            <CategoryListTile
-                                isChecked={isCategorySelected(item.id)}
-                                label={item.id}
-                                onChecked={() => onCategoryToggle(item)}
-                            />
-                        )}
-                    />
-                    <Text style={styles.optionLabel}>Blacklisted Categories</Text>
-                    <View style={styles.spacer}/>
-                    <BottomSheetFlatList
-                        data={BLACKLIST_CATEGORIES}
-                        scrollEnabled={false}
-                        keyExtractor={(item: string) => item}
-                        renderItem={({item}) => (
-                            <CategoryListTile
-                                isChecked={isBlacklisted(item)}
-                                label={item}
-                                onChecked={() => onBlacklistToggle(item)}/>
-                        )}
-                    />
-                </>
-            )}
+            {
+                isLoading ?
+                    <Loader/>
+                    :
+                    <>
+                        <Text style={styles.optionLabel}>Allowed Categories</Text>
+                        <View style={styles.spacer}/>
+                        <BottomSheetFlatList
+                            data={allOptions}
+                            scrollEnabled={false}
+                            keyExtractor={(item) => item.id}
+                            renderItem={({item}) => (
+                                <CategoryListTile
+                                    isChecked={isCategorySelected(item.id)}
+                                    label={item.id}
+                                    onChecked={() => onCategoryToggle(item)}
+                                />
+                            )}
+                        />
+                        <Text style={styles.optionLabel}>Blacklisted Categories</Text>
+                        <View style={styles.spacer}/>
+                        <BottomSheetFlatList
+                            data={BLACKLIST_CATEGORIES}
+                            scrollEnabled={false}
+                            keyExtractor={(item: string) => item}
+                            renderItem={({item}) => (
+                                <CategoryListTile
+                                    isChecked={isBlacklisted(item)}
+                                    label={item}
+                                    isBlacklist={true}
+                                    onChecked={() => onBlacklistToggle(item)}
+                                />
+                            )}
+                        />
+                    </>
+            }
         </BottomSheetScrollView>
     );
 };
@@ -99,7 +94,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     optionLabel: {
-        fontFamily: regularFont,
+        fontFamily: mediumFont,
         fontSize: 16,
         color: blackColor,
         marginTop: 10,

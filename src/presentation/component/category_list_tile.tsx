@@ -1,4 +1,10 @@
-import {blackColor, primaryColor, regularFont, whiteColor} from "@/src/presentation/config/theme";
+import {
+    blackColor,
+    primaryDarkColor,
+    redColor,
+    regularFont,
+    whiteColor
+} from "@/src/presentation/config/theme";
 import {StyleSheet, Text, View} from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox/lib";
 import React from "react";
@@ -7,15 +13,16 @@ function CategoryListTile(props: {
     isChecked: boolean;
     label: string;
     onChecked: (b: boolean) => void;
+    isBlacklist?: boolean,
 }): React.JSX.Element {
-    const {isChecked, label, onChecked} = props;
+    const {isChecked, label, onChecked, isBlacklist = false} = props;
     return (
         <View style={styles.optionContainer}>
             <BouncyCheckbox
                 isChecked={isChecked}
                 onPress={checked => onChecked(checked)}
                 textComponent={<Text style={styles.optionLabel}>{label}</Text>}
-                fillColor={primaryColor}
+                fillColor={isBlacklist ? redColor : primaryDarkColor}
                 unFillColor={whiteColor}
                 innerIconStyle={styles.innerIconStyle}
             />

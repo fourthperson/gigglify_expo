@@ -100,7 +100,7 @@ const HomePage = (): React.JSX.Element => {
             <BottomSheetModal
                 ref={settingsModalRef}
                 snapPoints={['50%']}
-                backdropComponent={props => ModalBackdrop(props)}>
+                backdropComponent={ModalBackdrop}>
                 <PreferencesSheet/>
             </BottomSheetModal>
             <BottomSheetModal
