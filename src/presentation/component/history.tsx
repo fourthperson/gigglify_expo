@@ -2,15 +2,14 @@ import React, {useEffect} from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
 import {FlashList} from '@shopify/flash-list';
-// import { useTranslation } from 'react-i18next';
-
 import {blackColor, mediumFont, whiteColor} from '@/src/presentation/config/theme';
 import {useHistory} from "@/src/presentation/hook/use_history";
 import HistoryItem from "@/src/presentation/component/history_list_item";
 import Loader from "@/src/presentation/component/loader";
+import {useTranslation} from "react-i18next";
 
 const HistorySheet = (): React.JSX.Element => {
-    // const {t} = useTranslation();
+    const {t} = useTranslation();
     const {jokes, dateFormat, isLoading, fetchHistory} = useHistory();
 
     useEffect(() => {
@@ -19,7 +18,7 @@ const HistorySheet = (): React.JSX.Element => {
 
     return (
         <BottomSheetScrollView style={styles.contentContainer}>
-            <Text style={styles.titleStyle}>History</Text>
+            <Text style={styles.titleStyle}>{t('history')}</Text>
             {
                 isLoading ?
                     <Loader/>
@@ -34,7 +33,6 @@ const HistorySheet = (): React.JSX.Element => {
                                 <HistoryItem joke={item} format={dateFormat}/>
                             )}
                         />
-
             }
         </BottomSheetScrollView>
     );

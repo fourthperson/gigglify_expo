@@ -5,13 +5,11 @@ import {
     View,
 } from 'react-native';
 import {BottomSheetFlatList, BottomSheetScrollView} from '@gorhom/bottom-sheet';
-// import {useTranslation} from 'react-i18next';
-
 import {
     blackColor,
     mediumFont,
 } from '../config/theme';
-import {useCategories} from "@/src/presentation/hook/use_preference";
+import {usePreferences} from "@/src/presentation/hook/use_preference";
 import {
     ANY_CATEGORY_ID,
     AVAILABLE_CATEGORIES,
@@ -20,16 +18,17 @@ import {
 } from "@/src/domain/entity/category";
 import CategoryListTile from "@/src/presentation/component/category_list_tile";
 import Loader from "@/src/presentation/component/loader";
+import {useTranslation} from "react-i18next";
 
 const PreferencesSheet = (): React.JSX.Element => {
-    // const {t} = useTranslation();
+    const {t} = useTranslation();
     const {
         onCategoryToggle,
         isCategorySelected,
         onBlacklistToggle,
         isBlacklisted,
         isLoading
-    } = useCategories();
+    } = usePreferences();
 
     const allOptions: Category[] = [
         {id: ANY_CATEGORY_ID, translationKey: 'category_any'},
@@ -38,13 +37,13 @@ const PreferencesSheet = (): React.JSX.Element => {
 
     return (
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-            <Text style={styles.titleStyle}>Preferences</Text>
+            <Text style={styles.titleStyle}>{t('preferences')}</Text>
             {
                 isLoading ?
                     <Loader/>
                     :
                     <>
-                        <Text style={styles.optionLabel}>Allowed Categories</Text>
+                        <Text style={styles.optionLabel}>{t('allowed_categories')}</Text>
                         <View style={styles.spacer}/>
                         <BottomSheetFlatList
                             data={allOptions}
@@ -53,12 +52,12 @@ const PreferencesSheet = (): React.JSX.Element => {
                             renderItem={({item}) => (
                                 <CategoryListTile
                                     isChecked={isCategorySelected(item.id)}
-                                    label={item.id}
+                                    label={t(item.translationKey)}
                                     onChecked={() => onCategoryToggle(item)}
                                 />
                             )}
                         />
-                        <Text style={styles.optionLabel}>Blacklisted Categories</Text>
+                        <Text style={styles.optionLabel}>{t('blacklisted_categories')}</Text>
                         <View style={styles.spacer}/>
                         <BottomSheetFlatList
                             data={BLACKLIST_CATEGORIES}

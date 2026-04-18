@@ -4,6 +4,7 @@
   "usage_description1": "Tap the screen to load a joke",
   "preferences": "Preferences",
   "allowed_categories": "Allowed categories",
+  "blacklisted_categories": "Blacklisted categories",
   "category_any": "Any",
   "category_dark": "Dark",
   "category_pun": "Pun",
@@ -11,6 +12,5 @@
   "category_christmas": "Christmas",
   "category_programming": "Programming",
   "category_misc": "Miscellaneous",
-  "done": "Done",
   "history": "History"
 }

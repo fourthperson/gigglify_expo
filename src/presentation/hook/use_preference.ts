@@ -3,7 +3,7 @@ import {ANY_CATEGORY_ID, AVAILABLE_CATEGORIES, Category} from "@/src/domain/enti
 import {preferenceGetUseCase, preferenceSetUseCase} from "@/src/di";
 import {Preference} from "@/src/domain/entity/preference";
 
-export const useCategories = () => {
+export const usePreferences = () => {
     const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
     const [blacklist, setBlacklist] = useState<string[]>([]);
 
@@ -34,14 +34,14 @@ export const useCategories = () => {
     };
 
     const onBlacklistToggle = async (id: string) => {
-        const index = blacklist.indexOf(id);
+        const index: number = blacklist.indexOf(id);
         let updated: string[];
         if (index > -1) {
             updated = blacklist.filter((cat: string) => cat !== id);
         } else {
             updated = [...blacklist, id];
         }
-        const preference = {
+        const preference: Preference = {
             categories: selectedCategories,
             blacklist: updated
         } as Preference;

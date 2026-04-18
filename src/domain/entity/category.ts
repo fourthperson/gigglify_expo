@@ -4,12 +4,12 @@ export interface Category {
 }
 
 export const AVAILABLE_CATEGORIES: Category[] = [
-    {id: 'Programming', translationKey: 'cat_programming'},
-    {id: 'Miscellaneous', translationKey: 'cat_misc'},
-    {id: 'Dark', translationKey: 'cat_dark'},
-    {id: 'Pun', translationKey: 'cat_pun'},
-    {id: 'Spooky', translationKey: 'cat_spooky'},
-    {id: 'Christmas', translationKey: 'cat_christmas'},
+    {id: 'Programming', translationKey: 'category_programming'},
+    {id: 'Miscellaneous', translationKey: 'category_misc'},
+    {id: 'Dark', translationKey: 'category_dark'},
+    {id: 'Pun', translationKey: 'category_pun'},
+    {id: 'Spooky', translationKey: 'category_spooky'},
+    {id: 'Christmas', translationKey: 'category_christmas'},
 ];
 
 export const BLACKLIST_CATEGORIES: string[] = [
