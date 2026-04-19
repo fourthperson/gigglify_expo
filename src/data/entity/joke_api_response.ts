@@ -5,4 +5,6 @@ export interface JokeApiResponse {
     delivery?: string;
     category: string;
     id: number;
+    safe: boolean;
+    flags: any;
 }

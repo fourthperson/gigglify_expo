@@ -28,6 +28,8 @@ import HistorySheet from "@/src/presentation/component/history";
 import ModalBackdrop from "@/src/presentation/component/modal_backdrop";
 import PreferencesSheet from "@/src/presentation/component/preferences";
 import {useTranslation} from "react-i18next";
+import {FlashList} from "@shopify/flash-list";
+import FlagPill from "@/src/presentation/component/flag_pill";
 
 const HomePage = (): React.JSX.Element => {
     const {t} = useTranslation();
@@ -69,6 +71,14 @@ const HomePage = (): React.JSX.Element => {
                                         <Text style={styles.jokeText}>
                                             {joke ? joke.content : t('usage_description1')}
                                         </Text>
+                                        <View style={styles.listContainer}>
+                                            <FlashList
+                                                data={joke?.flags ?? []}
+                                                horizontal={true}
+                                                showsHorizontalScrollIndicator={false}
+                                                contentContainerStyle={styles.listContent}
+                                                renderItem={({item}) => <FlagPill flag={item}/>}/>
+                                        </View>
                                     </View>
                                 </TouchableOpacity>
 
@@ -154,6 +164,14 @@ const styles = StyleSheet.create({
     backdropStyle: {
         backgroundColor: blackColor,
     },
+    listContainer: {
+        marginTop: 36,
+        height: 40,
+        width: '100%',
+    },
+    listContent: {
+        paddingHorizontal: 0,
+    }
 });
 
 export default HomePage;

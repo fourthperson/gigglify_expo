@@ -10,7 +10,16 @@ export class ApiJokeRepository implements JokeRepository {
     async getJoke(category: string): Promise<Joke> {
         const response: any = await this.apiDataSource.get(category);
 
-        const data = response as JokeApiResponse;
+        const data: JokeApiResponse = response as JokeApiResponse;
+
+        const flags: string[] = [];
+        if (data.flags) {
+            Object.keys(data.flags).forEach((key: string) => {
+                if (data.flags[key] as boolean) {
+                    flags.push(key);
+                }
+            });
+        }
 
         return {
             content: data.type === 'single'
@@ -18,6 +27,8 @@ export class ApiJokeRepository implements JokeRepository {
                 : `${data.setup}\n\n${data.delivery}`,
             category: data.category,
             time: Date.now().toString(),
-        };
+            safe: data.safe,
+            flags: flags,
+        } as Joke;
     }
 }
